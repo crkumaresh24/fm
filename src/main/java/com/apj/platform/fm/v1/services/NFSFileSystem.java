@@ -19,24 +19,26 @@ public class NFSFileSystem implements IFileSystem {
     private String rootPath;
 
     @Override
-    public long upload(long id, byte[] contents) throws IOException {
-        Files.write(Paths.get(rootPath, String.valueOf(id)), contents, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-        return getSize(id);
+    public long upload(String user, long id, byte[] contents) throws IOException {
+        Files.createDirectories(Paths.get(rootPath, user));
+        Files.write(Paths.get(rootPath, user, String.valueOf(id)), contents, StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING);
+        return getSize(user, id);
     }
 
     @Override
-    public long getSize(long id) throws IOException {
-        return Files.size(Paths.get(rootPath, String.valueOf(id)));
+    public long getSize(String user, long id) throws IOException {
+        return Files.size(Paths.get(rootPath, user, String.valueOf(id)));
     }
 
     @Override
-    public byte[] download(long id) throws IOException {
-        return Files.readAllBytes(Paths.get(rootPath, String.valueOf(id)));
+    public byte[] download(String user, long id) throws IOException {
+        return Files.readAllBytes(Paths.get(rootPath, user, String.valueOf(id)));
     }
 
     @Override
-    public void delete(long id) throws IOException {
-        Files.delete(Paths.get(rootPath, String.valueOf(id)));
+    public void delete(String user, long id) throws IOException {
+        Files.delete(Paths.get(rootPath, user, String.valueOf(id)));
     }
 
 }

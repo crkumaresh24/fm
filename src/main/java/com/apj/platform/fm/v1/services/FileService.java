@@ -41,12 +41,13 @@ public class FileService {
         fileMetadata.setStatus(FileStatus.CREATED);
         fileMetadata = this.fileRepo.save(fileMetadata);
         try {
-            long size = this.fileSystem.upload(fileMetadata.getId(), contents);
+            long size = this.fileSystem.upload(fileMetadata.getCreatedBy(), fileMetadata.getId(), contents);
             fileMetadata.setStatus(FileStatus.UPLOAD_SUCCESS);
             fileMetadata.setSize(size);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             fileMetadata.setStatus(FileStatus.UPLOAD_FAILED);
+            this.fileRepo.save(fileMetadata);
             throw new UploadFailedException(String.valueOf(fileMetadata.getId()), e.getMessage());
         }
         return this.fileRepo.save(fileMetadata);
@@ -58,12 +59,13 @@ public class FileService {
         fileMetadata = this.fileRepo.save(fileMetadata);
         try {
             delete(fileMetadata);
-            long size = this.fileSystem.upload(fileMetadata.getId(), contents);
+            long size = this.fileSystem.upload(fileMetadata.getCreatedBy(), fileMetadata.getId(), contents);
             fileMetadata.setStatus(FileStatus.UPLOAD_SUCCESS);
             fileMetadata.setSize(size);
         } catch (Exception e) {
-            
+            log.error(e.getMessage(), e);
             fileMetadata.setStatus(FileStatus.OVERWRITE_FAILED);
+            this.fileRepo.save(fileMetadata);
             throw new UploadFailedException(String.valueOf(fileMetadata.getId()), e.getMessage());
         }
         return this.fileRepo.save(fileMetadata);
@@ -93,8 +95,9 @@ public class FileService {
         fileMetadata.setStatus(FileStatus.DELETE_IN_PROGRESS);
         fileMetadata = this.fileRepo.save(fileMetadata);
         try {
-            this.fileSystem.delete(fileMetadata.getId());
+            this.fileSystem.delete(fileMetadata.getCreatedBy(), fileMetadata.getId());
         } catch (IOException e) {
+            log.error(e.getMessage(), e);
             fileMetadata.setStatus(status);
             fileMetadata = this.fileRepo.save(fileMetadata);
             throw new DeleteFailedException(String.valueOf(fileMetadata.getId()), e.getMessage());
@@ -108,7 +111,7 @@ public class FileService {
         FileMetadata fileMetadata = read(id);
         byte[] contents = null;
         try {
-            contents = this.fileSystem.download(fileMetadata.getId());
+            contents = this.fileSystem.download(fileMetadata.getCreatedBy(), fileMetadata.getId());
         } catch (Exception e) {
             throw new DownloadFailedException(String.valueOf(id), e.getMessage());
         }

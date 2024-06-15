@@ -1,0 +1,17 @@
+{"properties": [
+  {
+    "name": "platform.auth-manager.url",
+    "type": "java.lang.String",
+    "description": "platform auth manager service url"
+  },
+  {
+    "name": "platform.token-validate.url",
+    "type": "java.lang.String",
+    "description": "platform auth manager token validate service url"
+  },
+  {
+    "name": "rootPath",
+    "type": "java.lang.String",
+    "description": "nfs root path for file upload. defaults to /"
+  }
+]}
