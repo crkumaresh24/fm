@@ -2,19 +2,20 @@ package com.apj.platform.fm.v1.commons.vo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 import org.springframework.http.HttpStatus;
 
 public abstract class SystemException extends Exception {
-	public List<Object> params;
+	public List<String> params;
 
 	public abstract String getErrorcode();
 
-	public void addToParams(Object value) {
+	public void addToParams(String... value) {
 		if (null == params) {
 			params = new ArrayList<>();
 		}
-		params.add(value);
+		params.addAll(Arrays.asList(value));
 	}
 
 	public SystemException(String message) {

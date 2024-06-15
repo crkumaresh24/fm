@@ -3,10 +3,10 @@ package com.apj.platform.fm.v1.controllers;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.apj.platform.fm.v1.commons.vo.SystemException;
 import com.apj.platform.fm.v1.entities.FileMetadata;
 import com.apj.platform.fm.v1.services.FileService;
 import com.apj.platform.fm.v1.services.exceptions.FileNotFoundException;
-
 import java.io.IOException;
 import java.util.List;
 
@@ -33,13 +33,13 @@ public class FileController {
     public Long upload(@RequestParam("file") MultipartFile file,
             @RequestParam("path") String path,
             @RequestParam("type") String type,
-            @RequestParam("name") String name) throws IOException {
+            @RequestParam("name") String name) throws IOException, SystemException {
         return this.fileServices.createFile(file.getBytes(), path, type, name).getId();
     }
 
     @PutMapping("/{id}/overwrite")
     public FileMetadata overwrite(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file)
-            throws IOException, FileNotFoundException {
+            throws IOException, SystemException {
         return this.fileServices.overwrite(id, file.getBytes());
     }
 
@@ -70,12 +70,12 @@ public class FileController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id") Long id) {
+    public void delete(@PathVariable("id") Long id) throws SystemException {
         this.fileServices.delete(id);
     }
 
     @GetMapping(value = "/{id}/download", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public @ResponseBody byte[] download(@PathVariable("id") Long id) throws IOException, FileNotFoundException {
+    public @ResponseBody byte[] download(@PathVariable("id") Long id) throws IOException, SystemException {
         return this.fileServices.download(id);
     }
 }

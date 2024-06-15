@@ -9,9 +9,9 @@ import com.apj.platform.fm.v1.entities.FileMetadata;
 
 @Repository
 public interface FileRepo extends JpaRepository<FileMetadata, Long> {
-    List<FileMetadata> findAllByCreatedBy(String createdBy);
+    List<FileMetadata> findAllByCreatedByAndStatusNot(String createdBy, String status);
 
-    List<FileMetadata> findAllByPathAndCreatedBy(String path, String createdBy);
+    List<FileMetadata> findAllByPathAndCreatedByAndStatusNot(String path, String createdBy, String status);
 
-    List<FileMetadata> findAllByTypeAndCreatedBy(String path, String createdBy);
+    List<FileMetadata> findAllByTypeAndCreatedByAndStatusNot(String path, String createdBy, String status);
 }

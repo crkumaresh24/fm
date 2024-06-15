@@ -30,6 +30,7 @@ public class FileMetadata {
     private String type;
     private String path;
     private long size;
+    private String status;
     @CreatedBy
     private String createdBy;
     @LastModifiedBy
