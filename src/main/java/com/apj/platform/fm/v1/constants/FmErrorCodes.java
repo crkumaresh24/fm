@@ -1,4 +1,4 @@
-package com.apj.platform.fm.v1.commons.constants;
+package com.apj.platform.fm.v1.constants;
 
 public interface FmErrorCodes {
     String ERR_INPUT_VALIDATION = "exception.input.validation";

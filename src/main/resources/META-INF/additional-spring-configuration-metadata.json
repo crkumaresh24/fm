@@ -13,5 +13,10 @@
     "name": "rootPath",
     "type": "java.lang.String",
     "description": "nfs root path for file upload. defaults to /"
+  },
+  {
+    "name": "rootPath",
+    "type": "java.lang.String",
+    "description": "A description for 'rootPath'"
   }
 ]}

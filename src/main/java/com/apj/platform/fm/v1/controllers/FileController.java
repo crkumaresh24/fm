@@ -3,7 +3,7 @@ package com.apj.platform.fm.v1.controllers;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.apj.platform.fm.v1.commons.vo.SystemException;
+import com.apj.platform.commons.vo.SystemException;
 import com.apj.platform.fm.v1.entities.FileMetadata;
 import com.apj.platform.fm.v1.services.FileService;
 import com.apj.platform.fm.v1.services.exceptions.FileNotFoundException;

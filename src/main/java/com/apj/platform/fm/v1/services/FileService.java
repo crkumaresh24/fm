@@ -6,7 +6,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import com.apj.platform.fm.v1.commons.vo.SystemException;
+import com.apj.platform.commons.beans.UsernameAuditorAware;
+import com.apj.platform.commons.vo.SystemException;
 import com.apj.platform.fm.v1.constants.FileStatus;
 import com.apj.platform.fm.v1.entities.FileMetadata;
 import com.apj.platform.fm.v1.repos.FileRepo;
@@ -83,7 +84,7 @@ public class FileService {
     }
 
     public FileMetadata read(Long id) throws FileNotFoundException {
-        return this.fileRepo.findById(id).orElseThrow(() -> new FileNotFoundException(id));
+        return this.fileRepo.findByIdAndStatusNot(id, FileStatus.DELETED).orElseThrow(() -> new FileNotFoundException(id));
     }
 
     public void delete(Long id) throws SystemException {

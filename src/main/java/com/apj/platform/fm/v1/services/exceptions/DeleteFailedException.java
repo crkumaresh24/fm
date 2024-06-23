@@ -1,7 +1,7 @@
 package com.apj.platform.fm.v1.services.exceptions;
 
-import com.apj.platform.fm.v1.commons.constants.FmErrorCodes;
-import com.apj.platform.fm.v1.commons.vo.SystemException;
+import com.apj.platform.commons.vo.SystemException;
+import com.apj.platform.fm.v1.constants.FmErrorCodes;
 
 public class DeleteFailedException extends SystemException {
 

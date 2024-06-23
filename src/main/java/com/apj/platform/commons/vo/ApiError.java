@@ -1,4 +1,4 @@
-package com.apj.platform.fm.v1.commons.vo;
+package com.apj.platform.commons.vo;
 
 import lombok.Data;
 import lombok.ToString;

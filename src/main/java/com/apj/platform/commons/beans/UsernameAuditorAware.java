@@ -1,4 +1,4 @@
-package com.apj.platform.fm.v1.services;
+package com.apj.platform.commons.beans;
 
 import java.util.Optional;
 
