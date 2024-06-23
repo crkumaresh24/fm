@@ -5,7 +5,7 @@ docker run --name mysql --restart=always -e MYSQL_ROOT_PASSWORD=mysql -p 3306:33
 ./gradlew clean build
 docker build -t platform/fm .
 docker stop platform-fm && docker rm platform-fm
-docker run -dit --name platform-fm --add-host=host.docker.internal:host-gateway --restart=always -p 9091:8080 -e "MYSQL_HOST=host.docker.internal" -e "MYSQL_USER=root" -e "MYSQL_PASSWORD=mysql" platform/fm
+docker run -dit --add-host=host.docker.internal:172.17.0.1 --name platform-fm --restart=always -p 9091:8080 -e "MYSQL_HOST=172.17.0.1" -e "MYSQL_USER=root" -e "MYSQL_PASSWORD=mysql" -e "AUTH_MANAGER_URL=http://172.17.0.1:9090" -v $(pwd)/uploads:/uploads -e "ROOT_PATH=/uploads" platform/fm
 
 # Run as local ddocker container - Single Command
 docker stop platform-fm && docker rm platform-fm
